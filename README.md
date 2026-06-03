@@ -42,12 +42,39 @@ bring to your mentor.
 
 ## Install
 
+This is a single Claude Code **command** — one markdown file. No plugin, no marketplace, no accounts.
+Installing it just means putting `before-ai.md` into a folder Claude Code reads.
+
+### The easy way — just ask Claude Code
+
+Open Claude Code in any terminal and paste this:
+
 ```
-/plugin marketplace add SaifAlYounan/before-ai
-/plugin install before-ai
+Install the /before-ai command from https://github.com/SaifAlYounan/before-ai —
+copy commands/before-ai.md into my ~/.claude/commands/ folder.
 ```
 
-Then run it:
+Claude Code will fetch the file from this repo and drop it in place. Restart Claude Code (or start a
+new session) and `/before-ai` is available everywhere.
+
+### The manual way — one copy
+
+If you'd rather do it by hand:
+
+```
+# global — available in every project:
+git clone https://github.com/SaifAlYounan/before-ai.git
+cp before-ai/commands/before-ai.md ~/.claude/commands/before-ai.md
+```
+
+Prefer it scoped to a single project instead of globally? Put it in that project's
+`.claude/commands/` folder rather than `~/.claude/commands/`:
+
+```
+cp before-ai/commands/before-ai.md /path/to/your/project/.claude/commands/before-ai.md
+```
+
+Either way, restart Claude Code so it picks up the new command. Then run it:
 
 ```
 /before-ai approving a new subsidiary CEO
