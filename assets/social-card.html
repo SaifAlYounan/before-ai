@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --paper:#f6f4ee; --paper2:#efece3;
+    --ink:#1a1712; --muted:#6b6258; --line:#cfc8ba;
+    --cut:#a4392f;        /* oxblood — the dead weight being removed */
+    --keep:#1c1712;       /* kept steps */
+    --pass:#2f6048;       /* what earns AI */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1280px;height:640px;}
+  .card{
+    width:1280px;height:640px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(130% 130% at 88% 6%, var(--paper) 0%, var(--paper2) 100%);
+    color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    padding:64px 76px 56px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  /* faint paper rule-grid */
+  .card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(26,23,18,.035) 1px,transparent 1px);
+    background-size:100% 40px;
+  }
+  .top{display:flex;align-items:baseline;gap:18px;position:relative;z-index:2;}
+  .mark{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:22px;letter-spacing:.02em;color:var(--ink);
+    border:1.5px solid var(--ink);border-radius:9px;padding:6px 14px;font-weight:600;
+  }
+  .eyebrow{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:18px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);
+  }
+  h1{
+    position:relative;z-index:2;
+    font-size:66px;line-height:1.04;font-weight:700;letter-spacing:-.015em;max-width:1090px;
+  }
+  h1 .it{font-style:italic;}
+  /* ── the diagram band: many inherited steps → cut → lean → four-question gate → earns AI ── */
+  .flowwrap{position:relative;z-index:2;margin:2px 0 0;}
+  .flow{display:flex;align-items:center;gap:18px;width:max-content;transform-origin:left center;}
+  .stack{display:flex;align-items:center;gap:8px;}
+  .step{
+    width:40px;height:40px;border-radius:8px;border:2px solid var(--keep);
+    background:rgba(26,23,18,.03);
+  }
+  .step.cut{
+    border-color:var(--cut);background:transparent;position:relative;opacity:.55;
+  }
+  .step.cut::after{
+    content:"";position:absolute;inset:-2px;border-radius:9px;
+    background:
+      linear-gradient(45deg,transparent 44%,var(--cut) 45%,var(--cut) 55%,transparent 56%);
+  }
+  .lbl{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:12.5px;letter-spacing:.01em;color:var(--muted);text-align:center;margin-top:9px;
+  }
+  .grp{display:flex;flex-direction:column;align-items:center;flex:0 0 auto;}
+  .arrow{display:flex;flex-direction:column;align-items:center;color:var(--muted);flex:0 0 auto;}
+  .arrow .a{font-size:30px;line-height:1;color:var(--ink);}
+  .arrow .t{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:12px;letter-spacing:.03em;margin-top:6px;color:var(--muted);white-space:nowrap;
+  }
+  /* the four-question gate */
+  .gate{display:flex;flex-direction:column;align-items:center;}
+  .bars{display:flex;gap:7px;align-items:flex-end;height:48px;}
+  .bars span{width:13px;border-radius:3px 3px 0 0;background:var(--ink);}
+  .bars span:nth-child(1){height:30px;}
+  .bars span:nth-child(2){height:40px;}
+  .bars span:nth-child(3){height:34px;}
+  .bars span:nth-child(4){height:46px;}
+  /* the node that earns AI */
+  .ai{
+    width:52px;height:52px;border-radius:50%;border:2.5px solid var(--pass);
+    display:flex;align-items:center;justify-content:center;color:var(--pass);
+    font-size:21px;font-weight:700;font-family:ui-monospace,Menlo,monospace;
+    background:rgba(47,96,72,.06);
+  }
+  .sub{
+    position:relative;z-index:2;
+    font-size:27px;line-height:1.34;color:#2a251e;font-weight:400;max-width:1010px;
+  }
+  .sub b{font-weight:700;}
+  .sub .q{font-style:italic;color:var(--muted);}
+  .foot{
+    position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
+    border-top:1.5px solid var(--line);padding-top:20px;
+  }
+  .repo{
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:21px;color:var(--ink);
+  }
+  .repo .s{color:var(--muted);}
+  .by{font-size:19px;color:var(--muted);font-style:italic;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <span class="mark">/before-ai</span>
+      <span class="eyebrow">fix the workflow first</span>
+    </div>
+
+    <h1>Decide what to <span class="it">delete</span><br>before you decide what to <span class="it">build</span>.</h1>
+
+    <div class="flowwrap"><div class="flow">
+      <div class="grp">
+        <div class="stack">
+          <div class="step"></div><div class="step cut"></div><div class="step"></div>
+          <div class="step cut"></div><div class="step cut"></div><div class="step"></div>
+        </div>
+        <div class="lbl">the workflow you inherited</div>
+      </div>
+
+      <div class="arrow"><div class="a">→</div><div class="t">interrogate every step</div></div>
+
+      <div class="grp">
+        <div class="stack">
+          <div class="step"></div><div class="step"></div>
+        </div>
+        <div class="lbl">what actually earns its place</div>
+      </div>
+
+      <div class="arrow"><div class="a">→</div><div class="t">the four-question test</div></div>
+
+      <div class="grp">
+        <div class="gate"><div class="bars"><span></span><span></span><span></span><span></span></div></div>
+        <div class="lbl">Volume·Pattern·Stakes·Verify</div>
+      </div>
+
+      <div class="arrow"><div class="a">→</div><div class="t">passes all four</div></div>
+
+      <div class="grp">
+        <div class="ai">AI</div>
+        <div class="lbl">earns a build</div>
+      </div>
+    </div></div>
+
+    <div class="sub">It <b>asks</b>; it never advises. <span class="q">“What breaks if this step is gone — and who’s accountable then?”</span> You reason it out. You decide. You self-rate.</div>
+
+    <div class="foot">
+      <div class="repo">github.com/SaifAlYounan<span class="s">/before-ai</span></div>
+      <div class="by">a Claude Code command · the edge is judgment, not the tool</div>
+    </div>
+  </div>
+  <script>
+    /* scale the diagram band to exactly fit the card's content width — no clipping, no guesswork */
+    (function(){
+      var wrap=document.querySelector('.flowwrap');
+      var flow=document.querySelector('.flow');
+      var avail=wrap.clientWidth;            /* content width inside the card padding */
+      var natural=flow.scrollWidth;
+      if(natural>avail){ flow.style.transform='scale('+(avail/natural)+')'; }
+      else { flow.style.marginLeft=((avail-natural)/2)+'px'; } /* center if it already fits */
+    })();
+  </script>
+</body>
+</html>
