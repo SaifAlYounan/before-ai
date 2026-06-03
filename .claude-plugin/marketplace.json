@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "before-ai",
+  "description": "Before AI — fix the workflow before you automate it. A Socratic command that helps knowledge workers interrogate a real process from first principles and decide what to delete before deciding what to build.",
+  "owner": {
+    "name": "Alexios van der Slikke-Kirillov",
+    "url": "https://github.com/SaifAlYounan/before-ai"
+  },
+  "plugins": [
+    {
+      "name": "before-ai",
+      "description": "The /before-ai command — a one-question-at-a-time walkthrough that maps a workflow as it really runs, interrogates every step (real risk vs inherited ritual, politics, duplication; the cheapest control that still works), then runs the survivors through the four-question test (Volume · Pattern · Stakes · Verification). It asks; it never advises. You reach every conclusion and self-rate; you leave with a redesigned workflow and a decision report for your mentor. v1.0.0.",
+      "category": "productivity",
+      "source": "./",
+      "homepage": "https://github.com/SaifAlYounan/before-ai",
+      "license": "MIT"
+    }
+  ]
+}
